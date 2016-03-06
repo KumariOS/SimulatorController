@@ -28,6 +28,8 @@ class ViewController: NSViewController, DragDropViewDelegate
         
         self.simulatorController = SimulatorController()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "installAction:", name: InstallActionNotification, object: nil)
+        
         for simType in SimulatorController.availableSimulators
         {
             let button = NSButton()
@@ -42,13 +44,10 @@ class ViewController: NSViewController, DragDropViewDelegate
             self.simulatorStackView.addConstraint(NSLayoutConstraint(item: self.simulatorStackView, attribute: .Width, relatedBy: .Equal, toItem: button, attribute: .Width, multiplier: 1, constant: 20))
         }
     }
-
-    override var representedObject: AnyObject?
+    
+    deinit
     {
-        didSet
-        {
-            // Update the view, if already loaded.
-        }
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: InstallActionNotification, object: nil)
     }
     
     func dragDropViewGotURL(appURL: NSURL)
@@ -118,6 +117,14 @@ class ViewController: NSViewController, DragDropViewDelegate
         }
         
         self.updateState()
+    }
+    
+    func installAction(notification: NSNotification)
+    {
+        if self.simulatorController.state == .Booted
+        {
+            self.simulatorController.install()
+        }
     }
 }
 

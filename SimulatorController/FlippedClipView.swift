@@ -8,7 +8,6 @@
 import Foundation
 import Cocoa
 
-@IBDesignable
 class FlippedClipView: NSClipView
 {
     override var flipped: Bool { get { return true } }

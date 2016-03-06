@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6348BAD91C8BD96300494A00 /* FBSimulatorControl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6348BAD61C8BD96100494A00 /* FBSimulatorControl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6348BADA1C8BD96700494A00 /* FBSimulatorControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6348BAD61C8BD96100494A00 /* FBSimulatorControl.framework */; };
+		6348BADC1C8BE0A300494A00 /* SimulatorController.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 6348BADB1C8BE0A300494A00 /* SimulatorController.sdef */; };
+		638CF59F1C8BE61800DDC8CC /* InstallAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638CF59E1C8BE61800DDC8CC /* InstallAction.swift */; };
 		63B7EB121C8ADFE600BB675C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B7EB111C8ADFE600BB675C /* AppDelegate.swift */; };
 		63B7EB141C8ADFE600BB675C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B7EB131C8ADFE600BB675C /* ViewController.swift */; };
 		63B7EB161C8ADFE600BB675C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63B7EB151C8ADFE600BB675C /* Assets.xcassets */; };
@@ -35,6 +37,8 @@
 
 /* Begin PBXFileReference section */
 		6348BAD61C8BD96100494A00 /* FBSimulatorControl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSimulatorControl.framework; path = Carthage/Build/Mac/FBSimulatorControl.framework; sourceTree = SOURCE_ROOT; };
+		6348BADB1C8BE0A300494A00 /* SimulatorController.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimulatorController.sdef; sourceTree = "<group>"; };
+		638CF59E1C8BE61800DDC8CC /* InstallAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallAction.swift; sourceTree = "<group>"; };
 		63B7EB0E1C8ADFE600BB675C /* SimulatorController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimulatorController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B7EB111C8ADFE600BB675C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63B7EB131C8ADFE600BB675C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +92,7 @@
 				63B7EB2C1C8AF70B00BB675C /* DragDropView.swift */,
 				63B7EB131C8ADFE600BB675C /* ViewController.swift */,
 				63B7EB261C8AE13300BB675C /* WindowController.swift */,
+				638CF59E1C8BE61800DDC8CC /* InstallAction.swift */,
 			);
 			path = SimulatorController;
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				63B7EB1A1C8ADFE600BB675C /* Info.plist */,
+				6348BADB1C8BE0A300494A00 /* SimulatorController.sdef */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -175,6 +181,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6348BADC1C8BE0A300494A00 /* SimulatorController.sdef in Resources */,
 				63B7EB161C8ADFE600BB675C /* Assets.xcassets in Resources */,
 				63B7EB191C8ADFE600BB675C /* Main.storyboard in Resources */,
 			);
@@ -192,6 +199,7 @@
 				63B7EB2F1C8B010000BB675C /* SimulatorController.swift in Sources */,
 				63B7EB271C8AE13300BB675C /* WindowController.swift in Sources */,
 				63B7EB121C8ADFE600BB675C /* AppDelegate.swift in Sources */,
+				638CF59F1C8BE61800DDC8CC /* InstallAction.swift in Sources */,
 				63B7EB2B1C8AF1F000BB675C /* FlippedClipView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

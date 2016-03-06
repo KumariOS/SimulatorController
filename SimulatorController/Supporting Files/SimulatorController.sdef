@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+
+<dictionary title="SimulatorController Terminology">
+    
+    <suite name="SimulatorController Actions" code="SimC" description="SimulatorController actions.">
+        
+        <command name="install" code="SimCinst" description="Install .app on launched simulators">
+            <cocoa class="SimulatorController.InstallAction"  />
+        </command>
+        
+    </suite>
+    
+</dictionary>
