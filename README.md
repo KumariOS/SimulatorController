@@ -8,7 +8,7 @@ Uses [FBSimulatorControl](https://github.com/facebook/FBSimulatorControl) to int
 
 ## Installation
 
-[Download the latest version here](https://github.com/davidlawson/SimulatorController/releases/download/v1.0/SimulatorController.app.zip).
+[Download the latest version here](https://github.com/davidlawson/SimulatorController/releases/download/v1.1/SimulatorController.app.zip).
 
 ## Usage
 
@@ -18,7 +18,17 @@ Select the simulators you want to launch, then press Boot or Boot & Install.
 
 When you have made changes to your app, rebuild it then press Install to reinstall it on the simulators.
 
-*AppleScript support (for automatic reinstall on build) coming soon.*
+## Scripting Support
+
+Add the following as a Run Script in your app's Build Phases:
+
+    osascript -e "if application \"SimulatorController\" is running then tell application \"SimulatorController\" to install"
+
+Whenever you build your app and the Simulator Controller has simulators booted, this will automatically install and launch the updated app.
+
+## Tips
+
+Some simulators do not support the x86_64 architecture. Disable "Build Active Architecture Only" in your Build Settings if you want to launch your app on both older and newer simulators.
 
 ## Building
 
