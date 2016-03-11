@@ -8,7 +8,7 @@ Uses [FBSimulatorControl](https://github.com/facebook/FBSimulatorControl) to int
 
 ## Installation
 
-[Download the latest version here](https://github.com/davidlawson/SimulatorController/releases/download/v1.1/SimulatorController.app.zip).
+[Download the latest version here](https://github.com/davidlawson/SimulatorController/releases/latest).
 
 ## Usage
 
