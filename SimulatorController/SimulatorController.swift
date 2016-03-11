@@ -95,9 +95,9 @@ class SimulatorController
         self.simulatorLaunchConfiguration = FBSimulatorLaunchConfiguration.scale50Percent()
     }
     
-    func setApplication(appURL: NSURL, bundleID: String, executable: String)
+    func setApplication(appURL: NSURL, bundleID: String, executable: String) throws
     {
-        self.application = try! FBSimulatorApplication(
+        self.application = try FBSimulatorApplication(
             name: bundleID,
             path: appURL.path,
             bundleID: bundleID,
@@ -116,13 +116,29 @@ class SimulatorController
         let simulatorConfigurations = simulators.map { simulator in SimulatorController.simulatorMap[simulator]! }
         for simulatorConfiguration in simulatorConfigurations
         {
-            let simulator = try! self.control.pool.allocateSimulatorWithConfiguration(simulatorConfiguration, options: allocationOptions)
-            let interact = simulator.interact
-            if simulator.state != .Booted
+            do
             {
-                interact.bootSimulator(self.simulatorLaunchConfiguration)
-                try! interact.perform()
-                self.simulators.append(simulator)
+                let simulator = try self.control.pool.allocateSimulatorWithConfiguration(simulatorConfiguration, options: allocationOptions)
+                let interact = simulator.interact
+                if simulator.state != .Booted
+                {
+                    interact.bootSimulator(self.simulatorLaunchConfiguration)
+                    
+                    do
+                    {
+                        try interact.perform()
+                    }
+                    catch let error as NSError
+                    {
+                        NSAlert(error: error).runModal()
+                    }
+                    
+                    self.simulators.append(simulator)
+                }
+            }
+            catch let error as NSError
+            {
+                NSAlert(error: error).runModal()
             }
         }
         
@@ -137,7 +153,18 @@ class SimulatorController
         {
             dispatch_group_async(dispatchGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
             {
-                try! simulator.interact.installApplication(self.application).launchApplication(self.launchConfiguration).perform()
+                do
+                {
+                    try simulator.interact.installApplication(self.application).launchApplication(self.launchConfiguration).perform()
+                }
+                catch let error as NSError
+                {
+                    dispatch_async(dispatch_get_main_queue())
+                    {
+                        NSAlert(error: error).runModal()
+                    }
+
+                }
             }
         }
         
@@ -152,7 +179,18 @@ class SimulatorController
         {
             dispatch_group_async(dispatchGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
             {
-                try! simulator.interact.shutdownSimulator().perform()
+                do
+                {
+                    try simulator.interact.shutdownSimulator().perform()
+                }
+                catch let error as NSError
+                {
+                    dispatch_async(dispatch_get_main_queue())
+                    {
+                        NSAlert(error: error).runModal()
+                    }
+                    
+                }
             }
         }
         

@@ -38,7 +38,7 @@ class ViewController: NSViewController, DragDropViewDelegate
             button.imagePosition = .ImageRight
             button.title = simType.rawValue
             button.target = self
-            button.action = #selector(toggledSimulator)
+            button.action = "toggledSimulator:"
             self.toggles.append(button)
             self.simulatorStackView.addView(button, inGravity: .Top)
             self.simulatorStackView.addConstraint(NSLayoutConstraint(item: self.simulatorStackView, attribute: .Width, relatedBy: .Equal, toItem: button, attribute: .Width, multiplier: 1, constant: 20))
@@ -58,10 +58,16 @@ class ViewController: NSViewController, DragDropViewDelegate
         let bundleID = plist["CFBundleIdentifier"] as! String
         let executable = plist["CFBundleExecutable"] as! String
         
-        self.simulatorController.setApplication(appURL, bundleID: bundleID, executable: executable)
-        
-        self.hasApp = true
-        self.updateState()
+        do
+        {
+            try self.simulatorController.setApplication(appURL, bundleID: bundleID, executable: executable)
+            self.hasApp = true
+            self.updateState()
+        }
+        catch let error as NSError
+        {
+            NSAlert(error: error).runModal()
+        }
     }
     
     @IBAction func pressedBoot(sender: AnyObject)
