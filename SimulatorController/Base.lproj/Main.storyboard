@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="10112" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10112"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -184,7 +185,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="pressedBoot:" target="XfG-lQ-9wD" id="Vbm-Qh-hPG"/>
+                                    <action selector="pressedBootWithSender:" target="XfG-lQ-9wD" id="anD-UG-lQf"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rPZ-Z7-K3y">
@@ -194,7 +195,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="pressedBootAndInstall:" target="XfG-lQ-9wD" id="Lj9-Xc-Uan"/>
+                                    <action selector="pressedBootAndInstallWithSender:" target="XfG-lQ-9wD" id="VN4-Tr-QMz"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fFg-MR-8ie">
@@ -204,7 +205,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="pressedInstall:" target="XfG-lQ-9wD" id="qD2-Jo-fFc"/>
+                                    <action selector="pressedInstallWithSender:" target="XfG-lQ-9wD" id="fAy-jk-v3c"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Z6Y-P7-WdF">
@@ -214,7 +215,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="pressedShutdown:" target="XfG-lQ-9wD" id="Sfj-L3-sZJ"/>
+                                    <action selector="pressedShutdownWithSender:" target="XfG-lQ-9wD" id="nmo-TN-1an"/>
                                 </connections>
                             </button>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="3PE-9A-eqv" customClass="DragDropView" customModule="SimulatorController" customModuleProvider="target">

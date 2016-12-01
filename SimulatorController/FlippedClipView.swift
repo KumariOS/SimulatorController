@@ -10,5 +10,5 @@ import Cocoa
 
 class FlippedClipView: NSClipView
 {
-    override var flipped: Bool { get { return true } }
+    override var isFlipped: Bool { get { return true } }
 }

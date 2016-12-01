@@ -13,6 +13,6 @@ class WindowController: NSWindowController
     override func windowDidLoad()
     {
         super.windowDidLoad()
-        self.window!.level = Int(CGWindowLevelForKey(.FloatingWindowLevelKey))
+        self.window!.level = Int(CGWindowLevelForKey(.floatingWindow))
     }
 }

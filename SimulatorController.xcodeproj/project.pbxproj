@@ -19,6 +19,12 @@
 		63B7EB2B1C8AF1F000BB675C /* FlippedClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B7EB2A1C8AF1F000BB675C /* FlippedClipView.swift */; };
 		63B7EB2D1C8AF70B00BB675C /* DragDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B7EB2C1C8AF70B00BB675C /* DragDropView.swift */; };
 		63B7EB2F1C8B010000BB675C /* SimulatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B7EB2E1C8B010000BB675C /* SimulatorController.swift */; };
+		D20079631DF0A83500F47A46 /* FBControlCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D20079601DF0A83500F47A46 /* FBControlCore.framework */; };
+		D20079641DF0A83500F47A46 /* FBDeviceControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D20079611DF0A83500F47A46 /* FBDeviceControl.framework */; };
+		D20079651DF0A83500F47A46 /* XCTestBootstrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D20079621DF0A83500F47A46 /* XCTestBootstrap.framework */; };
+		D20079661DF0A84100F47A46 /* FBControlCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D20079601DF0A83500F47A46 /* FBControlCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D20079671DF0A84100F47A46 /* FBDeviceControl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D20079611DF0A83500F47A46 /* FBDeviceControl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D20079681DF0A84100F47A46 /* XCTestBootstrap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D20079621DF0A83500F47A46 /* XCTestBootstrap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +35,9 @@
 			dstSubfolderSpec = 10;
 			files = (
 				6348BAD91C8BD96300494A00 /* FBSimulatorControl.framework in Embed Frameworks */,
+				D20079661DF0A84100F47A46 /* FBControlCore.framework in Embed Frameworks */,
+				D20079671DF0A84100F47A46 /* FBDeviceControl.framework in Embed Frameworks */,
+				D20079681DF0A84100F47A46 /* XCTestBootstrap.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,6 +58,9 @@
 		63B7EB2A1C8AF1F000BB675C /* FlippedClipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlippedClipView.swift; sourceTree = "<group>"; };
 		63B7EB2C1C8AF70B00BB675C /* DragDropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragDropView.swift; sourceTree = "<group>"; };
 		63B7EB2E1C8B010000BB675C /* SimulatorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorController.swift; sourceTree = "<group>"; };
+		D20079601DF0A83500F47A46 /* FBControlCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBControlCore.framework; path = Carthage/Build/Mac/FBControlCore.framework; sourceTree = SOURCE_ROOT; };
+		D20079611DF0A83500F47A46 /* FBDeviceControl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBDeviceControl.framework; path = Carthage/Build/Mac/FBDeviceControl.framework; sourceTree = SOURCE_ROOT; };
+		D20079621DF0A83500F47A46 /* XCTestBootstrap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTestBootstrap.framework; path = Carthage/Build/Mac/XCTestBootstrap.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +69,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6348BADA1C8BD96700494A00 /* FBSimulatorControl.framework in Frameworks */,
+				D20079631DF0A83500F47A46 /* FBControlCore.framework in Frameworks */,
+				D20079651DF0A83500F47A46 /* XCTestBootstrap.framework in Frameworks */,
+				D20079641DF0A83500F47A46 /* FBDeviceControl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +115,9 @@
 		63B7EB201C8AE04D00BB675C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D20079601DF0A83500F47A46 /* FBControlCore.framework */,
+				D20079611DF0A83500F47A46 /* FBDeviceControl.framework */,
+				D20079621DF0A83500F47A46 /* XCTestBootstrap.framework */,
 				6348BAD61C8BD96100494A00 /* FBSimulatorControl.framework */,
 			);
 			path = Frameworks;
@@ -155,6 +173,7 @@
 				TargetAttributes = {
 					63B7EB0D1C8ADFE600BB675C = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0810;
 					};
 				};
 			};
@@ -314,6 +333,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = au.com.davidlawson.SimulatorController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Debug;
 		};
@@ -330,6 +350,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = au.com.davidlawson.SimulatorController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Release;
 		};

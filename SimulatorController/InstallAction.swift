@@ -7,13 +7,13 @@
 
 import Cocoa
 
-let InstallActionNotification = "InstallActionNotification"
+let InstallActionNotification = NSNotification.Name("InstallActionNotification")
 
 class InstallAction: NSScriptCommand
 {
-    override func performDefaultImplementation() -> AnyObject?
+    override func performDefaultImplementation() -> Any?
     {
-        NSNotificationCenter.defaultCenter().postNotificationName(InstallActionNotification, object: nil)
+        NotificationCenter.default.post(name: InstallActionNotification, object: nil)
         return nil
     }
 }
