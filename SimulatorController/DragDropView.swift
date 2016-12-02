@@ -21,36 +21,36 @@ class DragDropView: NSView
     {
         super.awakeFromNib()
         
-        self.registerForDraggedTypes([
+        self.register(forDraggedTypes: [
             NSURLPboardType
         ])
         
         let layer = CALayer()
-        layer.backgroundColor = NSColor(white: 0.9, alpha: 1).CGColor
+        layer.backgroundColor = NSColor(white: 0.9, alpha: 1).cgColor
         self.wantsLayer = true
         self.layer = layer
     }
     
-    override func draggingEntered(sender: NSDraggingInfo) -> NSDragOperation
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation
     {
         let pboard = sender.draggingPasteboard()
         
         if pboard.types!.contains(NSURLPboardType)
         {
-            let file = NSURL(fromPasteboard: pboard)!
-            return file.path!.hasSuffix(".app") ? .Link : .None
+            let file = NSURL(from: pboard)!
+            return file.path!.hasSuffix(".app") ? .link : []
         }
         
-        return .None
+        return []
     }
     
-    override func performDragOperation(sender: NSDraggingInfo) -> Bool
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool
     {
         let pboard = sender.draggingPasteboard()
-        let file = NSURL(fromPasteboard: pboard)!
+        let file = NSURL(from: pboard)!
         self.nameView.stringValue = file.pathComponents!.last!
         
-        self.delegate.dragDropViewGotURL(file)
+        self.delegate.dragDropViewGotURL(appURL: file)
         
         return true
     }

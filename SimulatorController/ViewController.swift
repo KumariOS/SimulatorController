@@ -28,39 +28,39 @@ class ViewController: NSViewController, DragDropViewDelegate
         
         self.simulatorController = SimulatorController()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "installAction:", name: InstallActionNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.installAction(notification:)), name: InstallActionNotification, object: nil)
         
         for simType in SimulatorController.availableSimulators
         {
             let button = NSButton()
-            button.setButtonType(.SwitchButton)
-            button.alignment = .Left
-            button.imagePosition = .ImageRight
+            button.setButtonType(.switch)
+            button.alignment = .left
+            button.imagePosition = .imageRight
             button.title = simType.rawValue
             button.target = self
-            button.action = "toggledSimulator:"
+            button.action = #selector(ViewController.toggledSimulator(button:))
             self.toggles.append(button)
-            self.simulatorStackView.addView(button, inGravity: .Top)
-            self.simulatorStackView.addConstraint(NSLayoutConstraint(item: self.simulatorStackView, attribute: .Width, relatedBy: .Equal, toItem: button, attribute: .Width, multiplier: 1, constant: 20))
+            self.simulatorStackView.addView(button, in: .top)
+            self.simulatorStackView.addConstraint(NSLayoutConstraint(item: self.simulatorStackView, attribute: .width, relatedBy: .equal, toItem: button, attribute: .width, multiplier: 1, constant: 20))
         }
     }
     
     deinit
     {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: InstallActionNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: InstallActionNotification, object: nil)
     }
     
     func dragDropViewGotURL(appURL: NSURL)
     {
-        let plistURL = appURL.URLByAppendingPathComponent("Info.plist")
-        let plist = NSDictionary(contentsOfURL: plistURL)!
+        let plistURL = appURL.appendingPathComponent("Info.plist")
+        let plist = NSDictionary(contentsOf: plistURL!)!
         
         let bundleID = plist["CFBundleIdentifier"] as! String
         let executable = plist["CFBundleExecutable"] as! String
         
         do
         {
-            try self.simulatorController.setApplication(appURL, bundleID: bundleID, executable: executable)
+            try self.simulatorController.setApplication(appURL: appURL, bundleID: bundleID, executable: executable)
             self.hasApp = true
             self.updateState()
         }
@@ -72,19 +72,19 @@ class ViewController: NSViewController, DragDropViewDelegate
     
     @IBAction func pressedBoot(sender: AnyObject)
     {
-        self.simulatorController.boot(self.enabledSimulators)
+        self.simulatorController.boot(simulators: self.enabledSimulators)
         
-        self.toggles.forEach { toggle in toggle.enabled = false }
+        self.toggles.forEach { toggle in toggle.isEnabled = false }
         
         self.updateState()
     }
     
     @IBAction func pressedBootAndInstall(sender: AnyObject)
     {
-        self.simulatorController.boot(self.enabledSimulators)
+        self.simulatorController.boot(simulators: self.enabledSimulators)
         self.simulatorController.install()
         
-        self.toggles.forEach { toggle in toggle.enabled = false }
+        self.toggles.forEach { toggle in toggle.isEnabled = false }
         
         self.updateState()
     }
@@ -98,17 +98,17 @@ class ViewController: NSViewController, DragDropViewDelegate
     {
         self.simulatorController.shutdown()
         
-        self.toggles.forEach { toggle in toggle.enabled = true }
+        self.toggles.forEach { toggle in toggle.isEnabled = true }
         
         self.updateState()
     }
     
     func updateState()
     {
-        self.bootButton.enabled = self.enabledSimulators.count > 0 && self.hasApp && self.simulatorController.state == .Ready
-        self.bootInstallButton.enabled = self.enabledSimulators.count > 0 && self.hasApp && self.simulatorController.state == .Ready
-        self.installButton.enabled = self.simulatorController.state == .Booted
-        self.shutdownButton.enabled = self.simulatorController.state == .Booted
+        self.bootButton.isEnabled = self.enabledSimulators.count > 0 && self.hasApp && self.simulatorController.state == .Ready
+        self.bootInstallButton.isEnabled = self.enabledSimulators.count > 0 && self.hasApp && self.simulatorController.state == .Ready
+        self.installButton.isEnabled = self.simulatorController.state == .Booted
+        self.shutdownButton.isEnabled = self.simulatorController.state == .Booted
     }
     
     func toggledSimulator(button: NSButton)

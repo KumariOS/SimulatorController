@@ -7,6 +7,7 @@
 
 import Foundation
 import FBSimulatorControl
+import AppKit
 
 enum Simulator: String
 {
@@ -22,19 +23,6 @@ enum Simulator: String
     case iPadAir2 = "iPad Air 2"
     case iPadPro = "iPad Pro"
     case iPadRetina = "iPad Retina"
-}
-
-extension FBSimulatorConfiguration
-{
-    class func iPhone6s() -> FBSimulatorConfiguration {
-        return FBSimulatorConfiguration.iPhone6().updateNamedDevice(FBSimulatorConfiguration_Device_iPhone6S())
-    }
-    class func iPhone6sPlus() -> FBSimulatorConfiguration {
-        return FBSimulatorConfiguration.iPhone6Plus().updateNamedDevice(FBSimulatorConfiguration_Device_iPhone6SPlus())
-    }
-    class func iPadPro() -> FBSimulatorConfiguration {
-        return FBSimulatorConfiguration.iPadRetina().updateNamedDevice(FBSimulatorConfiguration_Device_iPadPro())
-    }
 }
 
 enum SimulatorState
@@ -77,9 +65,9 @@ class SimulatorController
     
     private let control: FBSimulatorControl
     private let allocationOptions: FBSimulatorAllocationOptions
-    private let simulatorLaunchConfiguration: FBSimulatorLaunchConfiguration
+    private let simulatorLaunchConfiguration: FBSimulatorBootConfiguration
     
-    private var application: FBSimulatorApplication?
+    private var application: FBApplicationDescriptor?
     private var launchConfiguration: FBApplicationLaunchConfiguration?
     
     private var simulators: [FBSimulator] = []
@@ -88,26 +76,27 @@ class SimulatorController
     
     init()
     {
-        let managementOptions: FBSimulatorManagementOptions = [.KillAllOnFirstStart]
+        let managementOptions: FBSimulatorManagementOptions = [.killAllOnFirstStart]
         let controlConfiguration = FBSimulatorControlConfiguration(deviceSetPath: nil, options: managementOptions)
         self.control = try! FBSimulatorControl.withConfiguration(controlConfiguration)
-        self.allocationOptions = [.Reuse]
-        self.simulatorLaunchConfiguration = FBSimulatorLaunchConfiguration.scale50Percent()
+        self.allocationOptions = [.reuse]
+        self.simulatorLaunchConfiguration = FBSimulatorBootConfiguration.scale50Percent()
     }
     
     func setApplication(appURL: NSURL, bundleID: String, executable: String) throws
     {
-        self.application = try FBSimulatorApplication(
+        self.application = try FBApplicationDescriptor(
             name: bundleID,
-            path: appURL.path,
+            path: appURL.path!,
             bundleID: bundleID,
-            binary: FBSimulatorBinary(path: appURL.URLByAppendingPathComponent(executable).path)
+            binary: FBBinaryDescriptor.binary(withPath: (appURL.appendingPathComponent(executable))!.path)
         )
         
         self.launchConfiguration = FBApplicationLaunchConfiguration(
-            application: application,
+            application: application!,
             arguments: [],
-            environment: [:]
+            environment: [:],
+            options: []
         )
     }
     
@@ -118,9 +107,9 @@ class SimulatorController
         {
             do
             {
-                let simulator = try self.control.pool.allocateSimulatorWithConfiguration(simulatorConfiguration, options: allocationOptions)
+                let simulator = try self.control.pool.allocateSimulator(with: simulatorConfiguration, options: allocationOptions)
                 let interact = simulator.interact
-                if simulator.state != .Booted
+                if simulator.state != .booted
                 {
                     interact.bootSimulator(self.simulatorLaunchConfiguration)
                     
@@ -147,19 +136,19 @@ class SimulatorController
     
     func install()
     {
-        let dispatchGroup = dispatch_group_create()
+        let dispatchGroup = DispatchGroup()
         
         for simulator in self.simulators
         {
-            dispatch_group_async(dispatchGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
+            DispatchQueue.global().async(group: dispatchGroup, qos: .userInitiated, flags: [])
             {
                 do
                 {
-                    try simulator.interact.installApplication(self.application).launchApplication(self.launchConfiguration).perform()
+                    try simulator.interact.installApplication(self.application!).launchApplication(self.launchConfiguration!).perform()
                 }
                 catch let error as NSError
                 {
-                    dispatch_async(dispatch_get_main_queue())
+                    DispatchQueue.main.async
                     {
                         NSAlert(error: error).runModal()
                     }
@@ -168,16 +157,16 @@ class SimulatorController
             }
         }
         
-        dispatch_group_wait(dispatchGroup, DISPATCH_TIME_FOREVER)
+        _ = dispatchGroup.wait(timeout: DispatchTime.distantFuture)
     }
     
     func shutdown()
     {
-        let dispatchGroup = dispatch_group_create()
+        let dispatchGroup = DispatchGroup()
         
         for simulator in self.simulators
         {
-            dispatch_group_async(dispatchGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
+            DispatchQueue.global().async(group: dispatchGroup, qos: .userInitiated, flags: [])
             {
                 do
                 {
@@ -185,16 +174,14 @@ class SimulatorController
                 }
                 catch let error as NSError
                 {
-                    dispatch_async(dispatch_get_main_queue())
-                    {
+                    DispatchQueue.main.async {
                         NSAlert(error: error).runModal()
                     }
-                    
                 }
             }
         }
         
-        dispatch_group_wait(dispatchGroup, DISPATCH_TIME_FOREVER)
+        _ = dispatchGroup.wait(timeout: DispatchTime.distantFuture)
         
         self.simulators.removeAll()
         
