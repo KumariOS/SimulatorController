@@ -18,6 +18,9 @@ enum Simulator: String
     case iPhone6Plus = "iPhone 6 Plus"
     case iPhone6s = "iPhone 6s"
     case iPhone6sPlus = "iPhone 6s Plus"
+    case iPhoneSE = "iPhone SE"
+    case iPhone7 = "iPhone 7"
+    case iPhone7Plus = "iPhone 7 Plus"
     case iPad2 = "iPad 2"
     case iPadAir = "iPad Air"
     case iPadAir2 = "iPad Air 2"
@@ -41,6 +44,9 @@ class SimulatorController
         .iPhone6Plus,
         .iPhone6s,
         .iPhone6sPlus,
+        .iPhoneSE,
+        .iPhone7,
+        .iPhone7Plus,
         .iPad2,
         .iPadAir,
         .iPadAir2,
@@ -56,6 +62,9 @@ class SimulatorController
         .iPhone6Plus: FBSimulatorConfiguration.iPhone6Plus(),
         .iPhone6s: FBSimulatorConfiguration.iPhone6s(),
         .iPhone6sPlus: FBSimulatorConfiguration.iPhone6sPlus(),
+        .iPhoneSE: FBSimulatorConfiguration.iPhoneSE(),
+        .iPhone7: FBSimulatorConfiguration.iPhone7(),
+        .iPhone7Plus: FBSimulatorConfiguration.iPhone7Plus(),
         .iPad2: FBSimulatorConfiguration.iPad2(),
         .iPadAir: FBSimulatorConfiguration.iPadAir(),
         .iPadAir2: FBSimulatorConfiguration.iPadAir2(),
