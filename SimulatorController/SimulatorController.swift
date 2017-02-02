@@ -55,7 +55,7 @@ class SimulatorController
     ]
     
     private static let simulatorMap: [Simulator: FBSimulatorConfiguration] = [
-        .iPhone4s: FBSimulatorConfiguration.iPhone4s(),
+        .iPhone4s: FBSimulatorConfiguration.iPhone4s().iOS_9_3(),
         .iPhone5: FBSimulatorConfiguration.iPhone5(),
         .iPhone5s: FBSimulatorConfiguration.iPhone5s(),
         .iPhone6: FBSimulatorConfiguration.iPhone6(),
